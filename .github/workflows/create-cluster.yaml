@@ -36,7 +36,7 @@ jobs:
       
       - name: Install Crossplane
         run: |
-          helm upgrade --install crossplane-stable/crossplane crossplane \
+          helm upgrade --install crossplane crossplane \
             --namespace crossplane-system \
             --create-namespace \
             --repo https://charts.crossplane.io/stable/ \
