@@ -10,4 +10,4 @@ runs:
       uses: azure/setup-kubectl@v4
     
     - name: Set up Helm
-      uses: azure/setup-helm@v4^
+      uses: azure/setup-helm@v4
