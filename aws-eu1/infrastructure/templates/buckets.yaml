@@ -2,7 +2,7 @@
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: crossplane-bucket-c5ffd8c0-63c2-4f80-9a1a-6b4e667250bd
+  name: crossplane-bucket-{{ uuidv4 }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.infrastructure | quote }}
 spec:
