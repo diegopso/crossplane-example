@@ -1,19 +1,21 @@
-name: "Setup kubeseal"
-description: "Sets up kubeseal CLI in your GitHub Actions workflow."
+name: Setup SOPS
+description: This action sets up Docker, kubectl, and Helm in the GitHub Actions environment.
 
 inputs:
   version:
     required: false
-    default: "0.23.0"
-    description: "kubeseal CLI version to install"
+    default: "3.10.2"
+    description: "SOPS version to install"
 
 runs:
   using: "composite"
   steps:
     - name: Set up SOPS
+      shell: bash
       run: |-
-          curl -O -L -C - https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux
-          sudo mv sops-v3.7.3.linux /usr/bin/sops
-          sudo chmod +x /usr/bin/sops
+        curl -O -L -C - https://github.com/mozilla/sops/releases/download/v${{ inputs.version }}/sops-v${{ inputs.version }}.linux
+        sudo mv sops-v${{ inputs.version }}.linux /usr/bin/sops
+        sudo chmod +x /usr/bin/sops
     - name: Decrypt
+      shell: bash
       run: find . -type f -name *.enc.yaml -exec sops decrypt -i {} \;
