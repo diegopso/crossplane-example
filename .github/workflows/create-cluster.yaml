@@ -11,7 +11,7 @@ jobs:
       - name: Set up Helm
         uses: ./.github/actions/setup-helm
 
-      - name: Set up Kind
+      - name: Set up Kind cluster
         uses: ./.github/actions/kind
 
       # - name: Decrypt secrets
