@@ -7,6 +7,12 @@ metadata:
     argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.infrastructureApp | quote }}
 spec:
   project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
   source:
     repoURL: https://github.com/diegopso/crossplane-example.git
     targetRevision: cluster-creation

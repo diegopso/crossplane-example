@@ -9,6 +9,6 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      namespace: crossplane-system
+      namespace: {{ .Release.Namespace }}
       name: aws-secret
       key: creds
