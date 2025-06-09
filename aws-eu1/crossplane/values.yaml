@@ -1,0 +1,5 @@
+argoSyncWaves:
+  crossplane:
+    providers: -10000
+    providersConfigurations: -9990
+    infrastructure: -9980

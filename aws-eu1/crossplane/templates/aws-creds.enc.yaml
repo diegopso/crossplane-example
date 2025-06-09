@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: aws-secret
+    namespace: crossplane-system
+data:
+    creds: ENC[AES256_GCM,data:yXrPQP9G8A/Cp+qDR+QCzy4JN02vZuAPPIwBt08PnU0J/gVjTergCLAuTob91XI5fhumxw80WYV6CFyd+2k0Q5b2U9zF1DkO3bspxb7UVKIRqulzy+hphkMTCQL5+562xAoBSsQZV4wZLG9exHkro5Yt5HJdc0Zhkovpoltc+J9DL/ta+gJsO5X872iy7EWxGFtEysUNRzHwLGoUqkEzxA==,iv:ZW0w/E+w74krLieZRoinxoI4KJgUoiDyGyJX4teWSvE=,tag:yGyo8LDAXNEvm9l12kYBgw==,type:str]
+sops:
+    lastmodified: "2025-06-09T13:29:11Z"
+    mac: ENC[AES256_GCM,data:U9G1fbkBLAj5TT4RGSxb4Qz7IsaGFZkPMYLzAWjMsGawwWNMj8sU1pvaYWpsOgQIN4vl1nRyZp30ZagNfXeFmebFYWCa5t9B5K4KAb0gfzFxB4UjSAofR0WvgnWoTrc+iYwDTKEPSeyAD/hjgYIWb6/Z3V9ddVY/K3nKMEY0V1Q=,iv:OW/xcYBfeTbbEOY9gR0mnrbxxke0/rypQiskqr5Bbak=,tag:rwbDiAZp6GF7FpjnlpA66A==,type:str]
+    pgp:
+        - created_at: "2025-06-09T13:29:11Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQIMA/b4SgaRrjB1ARAArpXXTLDcH8XlGyr345ga1I31DY09W0Ma8g5f7A2Qbqot
+            qDg/cf+4/Acy2egY0ohsiIyST7TTmlZ0rOeaKU7KvcYL7mSpjz9/TJ3cIVcxPzX6
+            SjL3arY+tZ2OlLPaYIBZbO3pRJEyfZtcG41rZayV3gXtoC/MwyH9A6+CyUCQPOxX
+            Aw6Y1EohhDvXl0DDCWkC4ds5WakJi4aJbcU5qunRxGKh7JUUPSrPIe5WqdOfH0M2
+            2FNuPaXDNrlZX6VHRSXiI3lJlS4hydiT9eyWudNLSF1zmMqtwr6xZXptFVBf5MIY
+            wBmIWDlXGwGM6WiSQktIs95ll9JASDuJZWC9UV/Gmon+scM+nepuuCa/ksx+/ftY
+            y0QBs7K672sRWyx+0AEZ8sljZzVvdDG95merTi55OuK62GqgKJPxETKJCSWBYVNs
+            hS8UiX+zHjxrpL9NOXdzqjqqZKm0R+3LxWEKO04biic/aKheJ/SYRHrz372RmQIx
+            1xPBuGitR1pEiBiIVnoJHdNkpYweE4g7Giq2ydVWBb0vC3MaaJc2eNTJQmHgqwJO
+            kF/qfHlQWGGXPJf7XSuUl3pxHcJ3nMhIFptEpnB14rX4gDovp0Ct/s0a0H0Vy+lB
+            D7pSuNjCSIdlBzk/jSP0ILfhsPUByH/ZvNKWTiQrqzCzl0AFdcZTcCeE047Dk2/U
+            WwEJAhAwrSoz1sbNiX89/Us19BQOTsk4/Q72ys6imoaem7gLtNouXadL8MutNjwD
+            BZ/ztfT12Qliefa8M7bntTueoySeq/NLtmd0CuWVQn/suFx/r50FANzHcpo=
+            =6BaZ
+            -----END PGP MESSAGE-----
+          fp: F5F3E2B76838D78BBA5E40E0E87E041E1CF025EA
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

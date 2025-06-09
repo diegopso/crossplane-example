@@ -1,0 +1,19 @@
+name: "Setup kubeseal"
+description: "Sets up kubeseal CLI in your GitHub Actions workflow."
+
+inputs:
+  version:
+    required: false
+    default: "0.23.0"
+    description: "kubeseal CLI version to install"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up SOPS
+      run: |-
+          curl -O -L -C - https://github.com/mozilla/sops/releases/download/v3.7.3/sops-v3.7.3.linux
+          sudo mv sops-v3.7.3.linux /usr/bin/sops
+          sudo chmod +x /usr/bin/sops
+    - name: Decrypt
+      run: find . -type f -name *.enc.yaml -exec sops decrypt -i {} \;

@@ -1,0 +1,12 @@
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  generateName: crossplane-bucket-
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.infrastructure }}
+spec:
+  forProvider:
+    region: us-east-2
+  providerConfigRef:
+    name: default
