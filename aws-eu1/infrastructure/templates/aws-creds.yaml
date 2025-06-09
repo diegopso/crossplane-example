@@ -5,6 +5,8 @@ metadata:
   creationTimestamp: null
   name: aws-secret
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.providers | quote }}
 spec:
   encryptedData:
     creds: AgAGghVmB6dNPtalix30S4z/YY3kiQp3QxdGoSbpM7/lg7D5Wd1RoPdbWccqwF36CY/fElhwJZ2l5eC5AneB2vVJabzAV8e9uhoHtZuRP74djCJSmcH/ouKIXHMrGCVow2RdWNT8d3GPT0RJCtLnzrp5WybEn8CcFwKXWefxN4w8G1e2qS/ezgJMUoSa3uZAFuNyiVcBXHX0BNlZJA8Ch17Xj/jg6CSJRO6YuDuCI3+cFSgp1PycUlETPh4M3JsW1G9CLGWfsWhHyCLVdSG7CgLVZaGuuM3q2IUI5vyQWL2+5Kgt/YEWCWJ0Gh/nixhcYTz1/JGko403EBm9zgTyTQrc9PWla7PVlXGYtvx926W+zej7bKn/pqTYIyhITdANPvStMSgXZeGvN0IFXng9AV7/GDeHbrA5ZzhFrHN6qfvggel2SulpvoGFvVxKpnrvT9zwY/HIeDVK9OdC12mOzOd13QRbCjTz/5xj5Tl6LY0qK78PjCw8sQG5ZG1JJ+cmPcFkScjM9Cu0Byc5CnfUZqi6cP/FKs2CFlyFOk/jz4UesReY4NhU15oOvjyJYQJINBH3YYPS04eamZGVvq9fi28bmal2Ab26cR0ZzDdjMwxk3E+FOaxLwUNXERLcV2za7lvrj32gc5TXPocFUJkKcaaJ1Bnw9t9ZlmbSrYkF7IZgnWS2kUzEFuwOnJ1Ip45a1QPMhiVXxFtMPhPXg8KGgcNO1hlnvAQQP8KVZNdF0glI+UTS7GoVcafQcxXbxHfW7psI33sodkOS6/LX+RnYLPXn5E9lO2wWcJhe+tBhVbKQjdt51LNfcDL2SWOSpY0dx+RxA4HAX5RC2VuIhbdSV4NpptLq8fIozw==

@@ -1,3 +1,5 @@
+{{- if .Values.infrastructureApp.enabled -}}
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -22,3 +24,4 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: infrastructure
+{{- end -}}
