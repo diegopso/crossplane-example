@@ -1,5 +1,6 @@
 argoSyncWaves:
   crossplane:
-    providers: "-980"
-    providersConfigurations: "-990"
-    infrastructure: "-1000"
+    secrets: "-1000"
+    providers: "-990"
+    providersConfigurations: "-980"
+    infrastructure: "-970"
