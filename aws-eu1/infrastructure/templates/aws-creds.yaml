@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: aws-secret
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.providers | quote }}
+spec:
+  encryptedData:
+    creds: AgA02o4v5gVdrxrJTB5WhV8XUMlLZZ/+apVn5YW8xMzFxWqDPGUI/J4KDvaWqcJpzckobC85fqNGfcnu0oq42q/m9b3ki1KNwqo1oO1zWF0pcrADetbs445p0kjr+ZnD77BBO6qXSYmp9Qm5bU/74FksEm12nHCvFEU/VIu/jCB/L8PaUDMNQEndOe6b0Iqs2BXZffBkK3h0Qh0k7gIUNnMG4laOTh+dKTfr0IHTOY+hOBCEMJMoH9JbVYtFYj3eOQ1vGcJ340yyhg8YiznFd1AnNgjdM3xFN4+QaHFCgUe+q2SuzsQxbcFlkPXwtJm8MMtANg7+JQvf/3xBtvgcGrngMx+WGkMCTNayqFBp/OWt7a+EGvfo9mhxDkL/MAoUpxwmJ1kpEpgkyu2DAfpn4EKzDZjLw2opJEpw1LL9L7g754hbV9O9yZS1pIsA0G5qYbw7+ic1ClIcUaeWKIdunllBnhc2RvWTImGNzyxJalGY8PeT3fFazVSiiGGxR/BOwAFA2ZVQ0OlVv+PD0CiwCrF0lRtsD9H/bvOwUWiqAWVAqnDlQjmcZU7tjWGdeHP6OUgrQedfli18StcJjC5tk3oC2rvPJQTSNcMC06rSC8cW2j32jDXf9hlZcbwnVMIIJ2M+tkm3zoZuF2neoXF3BiOfge6iDPSdZpl94Tob21/l5HSF6raWRkbl2AOummOUSoR2vVvJa3dLLX2wDNtgomSAStUkXyYeZdHbTkwZG3Gv800KVFeEWMuupI92NPz1olH9Kxl12wxPJWdlwbUOIG8PWW9v+E1Ica3J6ux2oTks/PHPGteG6iPDHSMAxnKT6o/Dfwb4uaENdjsFe/2/dpyeTr+FKYc8mA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: aws-secret

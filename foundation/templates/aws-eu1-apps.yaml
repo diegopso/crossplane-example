@@ -1,16 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: infrastructure
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  name: aws-eu1
 spec:
   project: default
   source:
     repoURL: https://github.com/diegopso/crossplane-example.git
+    path: aws-eu1/apps
     targetRevision: cluster-creation
-    path: aws-eu1/crossplane
   destination:
     server: https://kubernetes.default.svc
-    namespace: infrastructure
+    namespace: {{ .Release.Namespace }}
