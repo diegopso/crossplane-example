@@ -4,7 +4,7 @@ kind: Bucket
 metadata:
   generateName: crossplane-bucket-
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.infrastructure }}
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.infrastructure | quote }}
 spec:
   forProvider:
     region: us-east-2
