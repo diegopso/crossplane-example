@@ -22,7 +22,6 @@ jobs:
       - name: Spin-up resources
         shell: bash
         run: |
-          helm dependencies update ./foundation
           helm dependencies build ./foundation
           helm upgrade --install platform-foundation ./foundation --wait
 
