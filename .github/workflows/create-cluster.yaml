@@ -33,8 +33,7 @@ jobs:
         id: export_aws_secrets
         shell: bash
         run: |
-          kubectl get all -n ${infrastructure_namespace}
-          kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
+          kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace} || kubectl get app; kubectl get all -n ${infrastructure_namespace}; exit 1;
           kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 >> $GITHUB_OUTPUT
 
       - name: Configure AWS credentials
