@@ -4,7 +4,7 @@ kind: ProviderConfig
 metadata:
   name: default
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.providersConfigurations | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.crossplane.configs | quote }}
 spec:
   credentials:
     source: Secret
