@@ -1,4 +1,3 @@
 argoSyncWaves:
-  crossplane:
-    configs: "-1000"
-    infrastructure: "-990"
+  secrets: "-1000"
+  configs: "-990"
