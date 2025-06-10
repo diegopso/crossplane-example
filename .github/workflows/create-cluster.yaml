@@ -28,6 +28,9 @@ jobs:
           EOF
           helm dependencies build ./foundation
           helm upgrade --install platform-foundation ./foundation --wait
+          kubectl get pods
+          kubectl get app
+          kubectl get secret
 
       - name: Export AWS credentials
         id: export_aws_secrets
