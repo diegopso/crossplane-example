@@ -1,6 +1,11 @@
 name: Create Cluster
 run-name: Creating Cluster
 on: [push]
+
+env:
+  resource_app: app/aws-eu1
+  provider_secret: secret/aws-secret
+
 jobs:
   SpinUpCluster:
     runs-on: ubuntu-24.04
@@ -14,13 +19,31 @@ jobs:
       - name: Set up Kind cluster
         uses: ./.github/actions/kind
 
-      # - name: Decrypt secrets
-      #   uses: ./.github/actions/sops
+      - name: Spin-up resources
+        shell: bash
+        run: |
+          helm dependencies update ./foundation
+          helm dependencies build ./foundation
+          helm upgrade --install platform-foundation ./foundation --wait
 
-      # configure aws credentials
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v3
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
+      - name: Export AWS credentials
+        id: export_aws_secrets
+        shell: bash
+        run: |
+          kubectl wait --for=create ${provider_secret}
+          kubectl get ${provider_secret} --template={{.data.creds}} | base64 -d | tail -n2 >> $GITHUB_OUTPUT
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ steps.export_aws_secrets.outputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ steps.export_aws_secrets.outputs.aws_secret_access_key }}
+          aws-region: us-east-2
+      
+      - name: List AWS resources
+        shell: bash
+        run: aws s3 ls
+
+      - name: Destroy resources
+        shell: bash
+        run: kubectl delete ${resource_app}
