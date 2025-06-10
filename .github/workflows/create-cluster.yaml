@@ -17,8 +17,9 @@ jobs:
       - name: Set up Helm
         uses: ./.github/actions/setup-helm
 
-      - name: Set up Kind cluster
-        uses: ./.github/actions/kind
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@latest
 
       - name: Spin-up resources
         shell: bash
