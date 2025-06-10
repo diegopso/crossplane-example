@@ -25,7 +25,6 @@ jobs:
           cat << EOF > ./foundation/tls.pem
           ${{ secrets.SEALED_SECRETS_PKEY }}
           EOF
-          head -n1 ./foundation/tls.pem
           helm dependencies build ./foundation
           helm upgrade --install platform-foundation ./foundation --wait
 
