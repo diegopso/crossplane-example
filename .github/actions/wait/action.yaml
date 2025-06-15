@@ -5,7 +5,7 @@ inputs:
   resource:
     required: true
     description: "Resource to wait for"
-  max_attempts:
+  max_retries:
     required: false
     default: "10"
     description: "Resource to wait for"
@@ -23,8 +23,8 @@ runs:
             echo "Succeeded."
             break
           else
-            echo "Attempt $retry/$max_retries failed. Retrying in 6 seconds..."
-            sleep 6
+            echo "Attempt $retry/$max_retries failed. Retrying in 5 seconds..."
+            sleep 5
             ((retry++))
           fi
         done
