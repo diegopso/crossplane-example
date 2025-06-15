@@ -35,14 +35,7 @@ jobs:
         shell: bash
         run: |
           kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
-          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 >> aws.txt
-          set -a
-          source aws.txt
-          set +a
-          echo "::add-mask::${aws_access_key_id}"
-          echo "aws_access_key_id=${aws_access_key_id}" >> "$GITHUB_OUTPUT"
-          echo "::add-mask::${aws_secret_access_key}"
-          echo "aws_secret_access_key=${aws_secret_access_key}" >> "$GITHUB_OUTPUT"
+          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 | tr -d ' ' >> "$GITHUB_OUTPUT"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -53,7 +46,7 @@ jobs:
       
       - name: List AWS resources
         shell: bash
-        run: aws s3 ls
+        run: aws s3 ls | grep crossplane
 
       - name: Destroy resources
         shell: bash
