@@ -29,14 +29,14 @@ jobs:
           EOF
           helm dependencies build ./foundation
           helm upgrade --install platform-foundation ./foundation --wait
+          sleep 30s
+          kubectl describe application aws-eu1
+          kubectl logs deploy/argocd-applicationset-controller
 
       - name: Export AWS credentials
         id: export_aws_secrets
         shell: bash
         run: |
-          sleep 60s
-          kubectl logs deploy/argocd-application-controller
-          kubectl describe application aws-eu1
           kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
           kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 >> $GITHUB_OUTPUT
 
