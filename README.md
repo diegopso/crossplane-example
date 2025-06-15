@@ -1,6 +1,8 @@
 ## Pre-requisties
 
-- A `kubectl`, and `helm`.
+- A `kubectl`, `helm`, and `kubeseal`.
+
+> Kubeseal is only needed to seal secrets, but not for deployment.
 
 ## Provision resources from local
 
