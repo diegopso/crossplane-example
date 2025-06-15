@@ -38,7 +38,6 @@ jobs:
           kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 | tr -d ' ' >> "$GITHUB_OUTPUT"
       
       - name: Mask AWS credentials
-        id: export_aws_secrets
         shell: bash
         run: |
           echo "::add-mask::${{ steps.export_aws_secrets.outputs.aws_access_key_id }}"
