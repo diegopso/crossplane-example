@@ -1,0 +1,26 @@
+{{- if .Values.infrastructureApp.enabled -}}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: infrastructure
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.infrastructureApp | quote }}
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    repoURL: https://github.com/diegopso/crossplane-example.git
+    targetRevision: cluster-creation
+    path: aws-eu1/infrastructure
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infrastructure
+{{- end -}}

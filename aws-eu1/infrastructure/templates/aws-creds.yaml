@@ -1,0 +1,15 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: aws-secret
+  namespace: infrastructure
+spec:
+  encryptedData:
+    creds: AgAqzcrd2DmhzTKYzHG/AG4SrIHwYljieg+Tm9SsB9F4aYo3MZOd1BAcNBIExo1szuFJgTBtPpr8E369LFLLcp12Sc9Q1L2xVLjguS49qGPze69sF4q8SeyT7/fn5RNGbvr4QJ0/RMXh9Lt8+S+0eKWdLTdbE4/ldc0pwEHDSaClAxFgKYbLy+B/h6aVvguAznskHVSE0oCpCM3FFLtLuFkaUXTBwWhdtGRC9auJbisqcS6Vho7qwjdRDx5ZFeRcQ983t4+7KGy51IieDIE9IyW0OQno+H/7V9l5AoZXTt7dJ2FN2skBk9cJMOVPHEgJccosHj8znDPnYG2OROeQJ3bFv0d/gbh8FJSvbWl4jzP6PdXB11w4tXfHfTb6Xj8X86Qq5KqJH2Dm665yaRyHV+x9v6j2JUA9Ba2BaSZMhZd+kZTbf2+GcbB0UiodqZAW5YKUkY4nTugRoGbbjca24M0hu022yUErADjHJNWzdE4WGNr1cF6VTV4Ky5mJ/ACpRKsNLxJkl5KJKDXjpO/ny/B55IHNWCJnxkSyusMvH2J/072LURQZio5+GsWH48MzhS6HXXVqsv7vXZHm/P6XsMX43aL8wxlBGLebFWb8kI5yLP1DFxF8w4G+AJXNrksE9nddO+nFWvy4C4eNbjm3wibL77bkZ7RemvErbKylNj+qaSNjHRMcBtuNe7Tg+SGhALqPOcdY0w8tIZ9lUbrQak4sjX2v+Evx3e8tuRbJmKJRPMEV72cMVcYzxXbW+LGicrxtEgER3M87AfB30uc82w9JrHnoH0U1Jlnh/gB+4Lm8eiaERoIB70He+8SP/bMmy+K9nUH2VxwZBwC+Zz9cLesz3IJieW4piA==
+  template:
+    metadata:
+      creationTimestamp: null
+      name: aws-secret
+      namespace: infrastructure

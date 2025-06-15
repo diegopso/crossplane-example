@@ -1,0 +1,5 @@
+argoSyncWaves:
+  infrastructureApp: "-10000"
+
+infrastructureApp:
+  enabled: true

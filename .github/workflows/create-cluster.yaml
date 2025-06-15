@@ -1,6 +1,12 @@
 name: Create Cluster
 run-name: Creating Cluster
 on: [push]
+
+env:
+  resource_app: app/aws-eu1
+  provider_secret: secret/aws-secret
+  infrastructure_namespace: infrastructure
+
 jobs:
   SpinUpCluster:
     runs-on: ubuntu-24.04
@@ -8,41 +14,53 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v4
-      
       - name: Set up Helm
-        uses: azure/setup-helm@v4
-      
-      - name: Install kind
-        run: |
-          curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
-          chmod +x ./kind
-          sudo mv ./kind /usr/local/bin/kind
+        uses: ./.github/actions/setup-helm
 
-      - name: Create kind cluster
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: Spin-up resources
+        shell: bash
         run: |
-          kind create cluster --wait 60s
+          cat << EOF > ./foundation/tls.pem
+          ${{ secrets.SEALED_SECRETS_PKEY }}
+          EOF
+          helm dependencies build ./foundation
+          helm upgrade --install platform-foundation ./foundation --wait
+
+      - name: Wait for Crossplane resources
+        uses: ./.github/actions/wait
+        with:
+          resource: buckets
+
+      - name: Export AWS credentials
+        id: export_aws_secrets
+        shell: bash
+        run: |
+          kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
+          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 | tr -d ' ' >> aws.txt
+          set -a
+          . ./aws.txt
+          set +a
+          echo "::add-mask::$aws_access_key_id"
+          echo "::add-mask::$aws_secret_access_key"
+          cat aws.txt >> "$GITHUB_OUTPUT"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ steps.export_aws_secrets.outputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ steps.export_aws_secrets.outputs.aws_secret_access_key }}
+          aws-region: us-east-2
       
-      - name: Get Cluster status
+      - name: List AWS resources
+        shell: bash
+        run: aws s3 ls | grep crossplane
+
+      - name: Destroy resources
+        shell: bash
         run: |
-          # wait network is ready
-          kubectl wait --for=condition=ready pods --namespace=kube-system -l k8s-app=kube-dns
-          kubectl get nodes -o wide
-          kubectl get pods -A
-      
-      - name: Install Crossplane
-        run: |
-          helm upgrade --install crossplane crossplane-stable/crossplane \
-            --namespace crossplane-system \
-            --create-namespace \
-            --repo https://charts.crossplane.io/stable/ \
-            --wait
-      
-      - name: Check Crossplane status
-        run: |
-          kubectl get pods -n crossplane-system
-          kubectl get crds | grep crossplane.io
+          kubectl delete ${resource_app}
+          kubectl wait --timeout 60s --for=delete ${resource_app}
