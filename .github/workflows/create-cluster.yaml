@@ -5,6 +5,7 @@ on: [push]
 env:
   resource_app: app/aws-eu1
   provider_secret: secret/aws-secret
+  infrastructure_namespace: infrastructure
 
 jobs:
   SpinUpCluster:
@@ -33,8 +34,8 @@ jobs:
         id: export_aws_secrets
         shell: bash
         run: |
-          kubectl wait --timeout 60s --for=create ${provider_secret} --all
-          kubectl get ${provider_secret} --all --template={{.data.creds}} | base64 -d | tail -n2 | tr -d ' ' >> aws.txt
+          kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
+          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 | tr -d ' ' >> aws.txt
           set -a
           . ./aws.txt
           set +a
@@ -52,11 +53,11 @@ jobs:
       - name: List AWS resources
         shell: bash
         run: |
-          kubectl wait --for=condition=Ready buckets --all --timeout=60s
+          kubectl wait --for=condition=Ready buckets -n ${infrastructure_namespace} --timeout 60s
           aws s3 ls | grep crossplane
 
       - name: Destroy resources
         shell: bash
         run: |
           kubectl delete ${resource_app}
-          kubectl wait --timeout=60s --for=delete ${resource_app}
+          kubectl wait --timeout 60s --for=delete ${resource_app}
