@@ -1,0 +1,34 @@
+name: Setup SOPS
+description: This action sets up Docker, kubectl, and Helm in the GitHub Actions environment.
+
+inputs:
+  resource:
+    required: true
+    description: "Resource to wait for"
+  max_attempts:
+    required: false
+    default: "10"
+    description: "Resource to wait for"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Wait for ${{ inputs.resource }} to be ready
+      shell: bash
+      run: |
+        attempt=1
+        while [[ $attempt -le $max_attempts ]]; do
+          status=$(kubectl get ${{ inputs.resource }} -A -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
+          if [[ "$status" == "True" ]]; then
+            echo "${{ inputs.resource }} is ready!"
+            break
+          fi
+          echo "Attempt $attempt/$max_attempts: Waiting for ${{ inputs.resource }} to be ready..."
+          sleep 5
+          ((attempt++))
+        done
+
+        if [[ $attempt -gt $max_attempts ]]; then
+          echo "Timed out waiting for ${{ inputs.resource }} to be ready."
+          exit 1
+        fi
