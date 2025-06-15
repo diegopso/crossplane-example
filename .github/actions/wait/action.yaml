@@ -17,19 +17,18 @@ runs:
       shell: bash
       run: |
         retry=1
-
-        while [[ $retry -le $max_retries ]]; do
+        while [[ $retry -le ${{ inputs.max_retries }} ]]; do
           if kubectl wait ${{ inputs.resource }} --for=condition=Ready --all --timeout 1s; then
             echo "Succeeded."
             break
           else
-            echo "Attempt $retry/$max_retries failed. Retrying in 5 seconds..."
+            echo "Attempt $retry/${{ inputs.max_retries }} failed. Retrying in 5 seconds..."
             sleep 5
             ((retry++))
           fi
         done
 
-        if [[ $retry -gt $max_retries ]]; then
-          echo "Wait failed after $max_retries attempts."
+        if [[ $retry -gt ${{ inputs.max_retries }} ]]; then
+          echo "Wait failed after ${{ inputs.max_retries }} attempts."
           exit 1
         fi
