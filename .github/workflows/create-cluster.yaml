@@ -50,4 +50,6 @@ jobs:
 
       - name: Destroy resources
         shell: bash
-        run: kubectl delete ${resource_app}
+        run: |
+          kubectl delete ${resource_app}
+          kubectl wait --timeout=60s --for=delete ${resource_app}
