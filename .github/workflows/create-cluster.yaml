@@ -35,7 +35,8 @@ jobs:
         shell: bash
         run: |
           kubectl wait --timeout 60s --for=create ${provider_secret} -n ${infrastructure_namespace}
-          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 >> $GITHUB_OUTPUT
+          kubectl get ${provider_secret} -n ${infrastructure_namespace} --template={{.data.creds}} | base64 -d | tail -n2 >> "$GITHUB_OUTPUT"
+          tail -n1 "$GITHUB_OUTPUT" | head -c 10
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
