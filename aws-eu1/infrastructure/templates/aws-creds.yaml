@@ -4,14 +4,12 @@ kind: SealedSecret
 metadata:
   creationTimestamp: null
   name: aws-secret
-  namespace: {{ .Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.argoSyncWaves.secrets | quote }}
+  namespace: infrastructure
 spec:
   encryptedData:
-    creds: AgAGghVmB6dNPtalix30S4z/YY3kiQp3QxdGoSbpM7/lg7D5Wd1RoPdbWccqwF36CY/fElhwJZ2l5eC5AneB2vVJabzAV8e9uhoHtZuRP74djCJSmcH/ouKIXHMrGCVow2RdWNT8d3GPT0RJCtLnzrp5WybEn8CcFwKXWefxN4w8G1e2qS/ezgJMUoSa3uZAFuNyiVcBXHX0BNlZJA8Ch17Xj/jg6CSJRO6YuDuCI3+cFSgp1PycUlETPh4M3JsW1G9CLGWfsWhHyCLVdSG7CgLVZaGuuM3q2IUI5vyQWL2+5Kgt/YEWCWJ0Gh/nixhcYTz1/JGko403EBm9zgTyTQrc9PWla7PVlXGYtvx926W+zej7bKn/pqTYIyhITdANPvStMSgXZeGvN0IFXng9AV7/GDeHbrA5ZzhFrHN6qfvggel2SulpvoGFvVxKpnrvT9zwY/HIeDVK9OdC12mOzOd13QRbCjTz/5xj5Tl6LY0qK78PjCw8sQG5ZG1JJ+cmPcFkScjM9Cu0Byc5CnfUZqi6cP/FKs2CFlyFOk/jz4UesReY4NhU15oOvjyJYQJINBH3YYPS04eamZGVvq9fi28bmal2Ab26cR0ZzDdjMwxk3E+FOaxLwUNXERLcV2za7lvrj32gc5TXPocFUJkKcaaJ1Bnw9t9ZlmbSrYkF7IZgnWS2kUzEFuwOnJ1Ip45a1QPMhiVXxFtMPhPXg8KGgcNO1hlnvAQQP8KVZNdF0glI+UTS7GoVcafQcxXbxHfW7psI33sodkOS6/LX+RnYLPXn5E9lO2wWcJhe+tBhVbKQjdt51LNfcDL2SWOSpY0dx+RxA4HAX5RC2VuIhbdSV4NpptLq8fIozw==
+    creds: AgAqzcrd2DmhzTKYzHG/AG4SrIHwYljieg+Tm9SsB9F4aYo3MZOd1BAcNBIExo1szuFJgTBtPpr8E369LFLLcp12Sc9Q1L2xVLjguS49qGPze69sF4q8SeyT7/fn5RNGbvr4QJ0/RMXh9Lt8+S+0eKWdLTdbE4/ldc0pwEHDSaClAxFgKYbLy+B/h6aVvguAznskHVSE0oCpCM3FFLtLuFkaUXTBwWhdtGRC9auJbisqcS6Vho7qwjdRDx5ZFeRcQ983t4+7KGy51IieDIE9IyW0OQno+H/7V9l5AoZXTt7dJ2FN2skBk9cJMOVPHEgJccosHj8znDPnYG2OROeQJ3bFv0d/gbh8FJSvbWl4jzP6PdXB11w4tXfHfTb6Xj8X86Qq5KqJH2Dm665yaRyHV+x9v6j2JUA9Ba2BaSZMhZd+kZTbf2+GcbB0UiodqZAW5YKUkY4nTugRoGbbjca24M0hu022yUErADjHJNWzdE4WGNr1cF6VTV4Ky5mJ/ACpRKsNLxJkl5KJKDXjpO/ny/B55IHNWCJnxkSyusMvH2J/072LURQZio5+GsWH48MzhS6HXXVqsv7vXZHm/P6XsMX43aL8wxlBGLebFWb8kI5yLP1DFxF8w4G+AJXNrksE9nddO+nFWvy4C4eNbjm3wibL77bkZ7RemvErbKylNj+qaSNjHRMcBtuNe7Tg+SGhALqPOcdY0w8tIZ9lUbrQak4sjX2v+Evx3e8tuRbJmKJRPMEV72cMVcYzxXbW+LGicrxtEgER3M87AfB30uc82w9JrHnoH0U1Jlnh/gB+4Lm8eiaERoIB70He+8SP/bMmy+K9nUH2VxwZBwC+Zz9cLesz3IJieW4piA==
   template:
     metadata:
       creationTimestamp: null
       name: aws-secret
-      namespace: {{ .Release.Namespace }}
+      namespace: infrastructure

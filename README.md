@@ -32,7 +32,17 @@ Use the secret printed and the user `admin` to see the [UI](https://localhost:80
 
 ## Sealing required secrets with Kubeseal
 
+Create a file `./.secrets/aws-creds.yaml` with:
+
+```
+[default]
+aws_access_key_id = your-key-id-here
+aws_secret_access_key = your-secret-here
+```
+
+Then:
+
 ```bash
-kubectl create secret generic aws-secret --from-file=creds=./.secrets/aws-credentials.txt --dry-run=client -o yaml >> ./.secrets/aws-creds.yaml
-cat ./.secrets/aws-creds.yaml | kubeseal --cert foundation/tls.crt -o yaml -n infrastructure > aws-eu1/crossplane/templates/aws-creds.yaml
+kubectl create secret generic aws-secret --from-file=creds=./.secrets/aws-credentials.txt --dry-run=client -o yaml > ./.secrets/aws-creds.yaml
+cat ./.secrets/aws-creds.yaml | kubeseal --cert foundation/tls.crt -o yaml -n infrastructure > aws-eu1/infrastructure/templates/aws-creds.yaml
 ```
