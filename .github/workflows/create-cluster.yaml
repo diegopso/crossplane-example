@@ -52,7 +52,9 @@ jobs:
       
       - name: List AWS resources
         shell: bash
-        run: aws s3 ls | grep crossplane
+        run: |
+          kubectl wait buckets --for=condition=Ready --all --timeout 60s
+          aws s3 ls | grep crossplane
 
       - name: Destroy resources
         shell: bash
