@@ -4,7 +4,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: infrastructure
-  namespace: platform-foundation
   finalizers:
     - resources-finalizer.argocd.argoproj.io
   annotations:
