@@ -16,19 +16,20 @@ runs:
     - name: Wait for ${{ inputs.resource }} to be ready
       shell: bash
       run: |
-        attempt=1
-        while [[ $attempt -le $max_attempts ]]; do
-          status=$(kubectl get ${{ inputs.resource }} -A -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}')
-          if [[ "$status" == "True" ]]; then
-            echo "${{ inputs.resource }} is ready!"
+        retry=1
+
+        while [[ $retry -le $max_retries ]]; do
+          if kubectl wait ${{ inputs.resource }} --for=condition=Ready --all --timeout 1s; then
+            echo "Succeeded."
             break
+          else
+            echo "Attempt $retry/$max_retries failed. Retrying in 6 seconds..."
+            sleep 6
+            ((retry++))
           fi
-          echo "Attempt $attempt/$max_attempts: Waiting for ${{ inputs.resource }} to be ready..."
-          sleep 5
-          ((attempt++))
         done
 
-        if [[ $attempt -gt $max_attempts ]]; then
-          echo "Timed out waiting for ${{ inputs.resource }} to be ready."
+        if [[ $retry -gt $max_retries ]]; then
+          echo "Wait failed after $max_retries attempts."
           exit 1
         fi
