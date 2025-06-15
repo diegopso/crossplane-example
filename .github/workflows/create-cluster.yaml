@@ -49,6 +49,11 @@ jobs:
           aws-access-key-id: ${{ steps.export_aws_secrets.outputs.aws_access_key_id }}
           aws-secret-access-key: ${{ steps.export_aws_secrets.outputs.aws_secret_access_key }}
           aws-region: us-east-2
+
+      - name: Wait for Crossplane resources
+        uses: ./.github/actions/wait
+        with:
+          resource: buckets
       
       - name: List AWS resources
         shell: bash
