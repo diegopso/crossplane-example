@@ -57,9 +57,7 @@ jobs:
       
       - name: List AWS resources
         shell: bash
-        run: |
-          sleep 30
-          aws s3 ls | grep crossplane
+        run: aws s3 ls | grep crossplane
 
       - name: Destroy resources
         shell: bash
